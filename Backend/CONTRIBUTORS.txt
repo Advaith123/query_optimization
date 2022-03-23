@@ -1,0 +1,13 @@
+============
+Contributors
+============
+
+django-searchbar Project Owner
+==========================
+
+* Arsham Shirvani <arshamshirvani@gmail.com>
+
+Contributors
+===========
+
+* Ivan Genchev <ivan@scooploop.com>
