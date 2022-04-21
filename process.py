@@ -14,6 +14,7 @@ import sqlparse
 #SELECT *, (SELECT count(DISTINCT c.id)   FROM  comments AS c   WHERE  c.PostId = p.id LIMIT 1)   FROM  posts AS p  WHERE p.AnswerCount > 3 AND p.title LIKE '%optimized'  AND p.CreationDate >= '2017-01-01 00:00:00'  ORDER BY p.CreationDate LIMIT 100
 #print(query)
 #SELECT p.id, count(distinct c.id) FROM posts AS p LEFT JOIN comments AS c ON c.PostId = p.id GROUP BY;
+#SELECT * FROM TABLE WHERE PRODUCT IN (SELECT NAME FROM ANIMALS)
 
 def star(query):
     if 'SELECT *' in query or 'select *' in query:
@@ -38,7 +39,7 @@ def dates(query):
         except:
             pass
     if count>0:
-        return 'Avoid Using Date Functions In Conditions' 
+        return 'Avoid Using DATE Functions In Conditions' 
 
 def group(query):
     parsed = sqlparse.parse(query)
@@ -58,17 +59,30 @@ def group(query):
             jf=1
             #print("perform group by before join to improve speed")
     if jf>0 and g>0:
-        return "perform group by before join to improve speed"
+        return "perform GROUP BY before JOIN to improve speed"
     pass
 
 def dist(query):
     parsed = sqlparse.parse(query)
     for i in parsed[0].tokens:
         #print(i)
-        if 'DISTINCT' or 'distinct' in i:
-            return "Avoid distinct if possible to increase speed"
+        try:
+            #print(i)
+            if 'DISTINCT' in str(i):
+                #print('p')
+                return "Avoid DISTINCT if possible to increase speed"
+        except:
+            pass
+def exist(query):
+    parsed = sqlparse.parse(query)
+    #print(parsed[0].tokens)
+    for i in parsed[0].tokens:
+        #print(i)
+        if 'IN' in str(i):
+            return "Use EXISTS instead of IN"
 
-#dist(query)
+#print(exist(query))
+#print(dist(query))
 #group(query)
 #dates(query)
 #like(query)

@@ -31,7 +31,8 @@ def inp():
        er3 = process.like(query)
        er4 = process.star(query)
        er5 = process.dist(query)
-       return render_template('result.html',er1 = er1,er2 = er2,er3 = er3,er4 = er4,er5 = er5)
+       er6 = process.exist(query)
+       return render_template('result.html',er1 = er1,er2 = er2,er3 = er3,er4 = er4,er5 = er5, er6 = er6)
     return render_template("home.html")
 
 
